@@ -18,10 +18,18 @@ class App extends Component {
   }
 
   handleSubmit(event) {    
-    alert('You created user: ' + this.state.userid + ' ' + this.state.name);
-    fetch('http://192.168.99.100:8081/persons/create', {
+    //alert('You created user: ' + this.state.userid + ' ' + this.state.name);
+    fetch('http://localhost:8080/persons/create', {
     method: 'post',
-    body: "{userid:" + this.state.userid + ", name:" + this.state.name +"}"
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    //body: "{'userid':'" + this.state.userid + "', 'name':'" + this.state.name +"'}"
+    body: JSON.stringify({
+      userid: this.state.userid,
+      name: this.state.name
+    })
   }).then(function(response) {
     return response.json();
   })
